@@ -37,7 +37,7 @@ public class ObjectplusApplicationTests {
 
         //when
         objectPlusService.saveAll();
-        objectPlusService.loadAll();
+        objectPlusService.reload();
 
         //then
         assertThat(extensionRepository.findAll()).isNotEmpty();

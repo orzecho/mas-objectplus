@@ -32,11 +32,14 @@ public class ObjectPlusService {
                 .forEach(extensionRepository::save);
     }
 
-    public void loadAll() {
-        extensionRepository.findAll().stream()
-                .collect(Collectors.toMap(
-                        Extension::getKlass,
-                        e -> (Vector) getObject(e)));
+    public Map<Class, Vector> findAll() {
+        return extensionRepository.findAll().stream()
+                .collect(Collectors.toMap(Extension::getKlass, e -> (Vector) getObject(e)));
+    }
+
+    public void reload() {
+        ObjectPlus.getExtensions().clear();
+        ObjectPlus.getExtensions().putAll(findAll());
     }
 
     private Object getObject(Extension e) {
